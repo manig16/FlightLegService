@@ -1,6 +1,6 @@
 # FlightLegService
 
-TypeScript Azure function app that performs CRUD operations on JSON documents on CosmosDB
+TypeScript Azure function app that performs CRUD operations on JSON documents in CosmosDB
 
 You may be here because you want to...
 * Learn more about Azure function app written in TypeScript (.NET coming up!!)
