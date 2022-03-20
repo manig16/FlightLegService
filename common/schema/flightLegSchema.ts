@@ -1,26 +1,26 @@
-import Joi from "joi";
+import * as Joi from 'joi';
 import { DiversionStatusEnum, StatusEnum } from "../model/FlightLeg";
 
 
-export const airlineSchema = Joi.object({
+const airlineSchema = Joi.object({
        iataCode: Joi.string().required().pattern(/^[a-zA-Z0-9]{2}$/),
         icaoCode: Joi.string().optional().allow(null).allow("").pattern(/^[a-zA-Z0-9]{3}$/),
         name: Joi.string().optional(),
 })
 
-export const airportSchema = Joi.object({
+const airportSchema = Joi.object({
         iataCode: Joi.string().required().pattern(/^[a-zA-Z0-9]{3}$/),
         icaoCode: Joi.string().optional().allow(null).allow("").pattern(/^[a-zA-Z0-9]{4}$/),
         name: Joi.string().optional(),
 })
 
-export const aircraftSchema = Joi.object({
+const aircraftSchema = Joi.object({
         registrationNumber: Joi.string().optional().pattern(/^[a-zA-Z0-9\-]{4,8}$/),
         icaoCode: Joi.string().optional().allow(null).allow("").pattern(/^[a-zA-Z0-9]{4}$/),
         name: Joi.string().optional(),
 })
 
-export const codeshareSchema = Joi.object({
+const codeshareSchema = Joi.object({
         airlineCode: Joi.string().required().pattern(/^[a-zA-Z0-9]{2,3}$/),
         flightNumber: Joi.number().optional().allow(null).integer().min(1).max(4),
 

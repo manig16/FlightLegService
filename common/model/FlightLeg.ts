@@ -1,4 +1,6 @@
 export interface FlightLeg {
+    id: string,
+    partitionKey: string,
     airline: Airline;
     flightNumber: number;
     departureAirport: Airport;
