@@ -1,17 +1,25 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
+import { createFlightLeg } from "../common/service/flightLegService";
+import { StatusCodes } from 'http-status-codes'
+import { getFlightLeg } from "../common/util/flightLegUti";
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
-    context.log('HTTP trigger function processed a request.');
-    const name = (req.query.name || (req.body && req.body.name));
-    const responseMessage = name
-        ? "Hello, " + name + ". This HTTP triggered function executed successfully."
-        : "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.";
-
-    context.res = {
-        // status: 200, /* Defaults to 200 */
-        body: responseMessage
-    };
-
+    const fleg = req.body
+    context.log(`HTTP trigger function - preparing to create flight leg for ${getFlightLeg(fleg)}`);
+    try {
+        const createdItem = await createFlightLeg(fleg, context)
+        context.res = {
+            status: StatusCodes.OK,
+            body: createdItem
+        }
+    }
+    catch(error) {
+        context.log.error(`HTTP trigger function - exception when creating the flightLeg. ${error.message}`)
+        context.res = {
+            status: StatusCodes.INTERNAL_SERVER_ERROR,
+            body: error
+        }
+    }
 };
 
 export default httpTrigger;
