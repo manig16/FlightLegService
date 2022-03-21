@@ -1,8 +1,12 @@
 
-export function getYYYYMMddHHmm(dt: Date) {
+export function getYYYYMMddHHmm(dt: Date): string {
     return dt.getFullYear().toString() +
-            dt.getMonth().toString() +
-            dt.getDate().toString() +
-            dt.getHours().toString() +
-            dt.getMinutes().toString()
+            pad(dt.getMonth()+1).toString() +
+            pad(dt.getDate()).toString() +
+            pad(dt.getHours()).toString() +
+            pad(dt.getMinutes()).toString()
+}
+
+function pad(n: number) {
+    return n < 10 ? '0'+n : n
 }
