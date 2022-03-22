@@ -17,7 +17,10 @@ export async function getFlightLegDao(flegId: string) {
             }
         ]
     }
-
     const { resources } = await getContainer().items.query(queryWithParams).fetchAll()
     return resources.length > 0 ? resources[0] : null
+}
+
+export async function updateFlightLegDao(fleg: FlightLeg) {
+    return await getContainer().item(fleg.id, fleg.partitionKey).replace(fleg)
 }
