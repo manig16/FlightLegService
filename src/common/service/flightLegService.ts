@@ -2,7 +2,7 @@ import { Context } from "@azure/functions";
 import { FlightLeg } from "../model/FlightLeg";
 import { getYYYYMMddHHmm } from "../util/dateUtil";
 import { validateFlightLeg } from "../validator/flightLegValidator";
-import { createFlightLegDao, getFlightLegDao, updateFlightLegDao } from "../dao/flightLegDao";
+import { createFlightLegDao, deleteFlightLegDao, getFlightLegDao, updateFlightLegDao } from "../dao/flightLegDao";
 import { prepareFlightLeg } from "../util/flightLegUti";
 
 export async function createFlightLeg(fleg: FlightLeg, context: Context) {
@@ -27,4 +27,8 @@ export async function updateFlightLeg(fleg: FlightLeg, context: Context) {
     prepareFlightLeg(fleg)
     await validateFlightLeg(fleg)
     return await updateFlightLegDao(fleg)
+}
+
+export async function deleteFlightLeg(fleg: FlightLeg, context: Context) {
+    return await deleteFlightLegDao(fleg)
 }
